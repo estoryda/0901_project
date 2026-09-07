@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | 홍길동 포트폴리오</title>
+  <meta name="description" content="프론트엔드 개발자 홍길동의 주요 웹 개발 프로젝트 및 포트폴리오입니다.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- Google Web Fonts -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- 스크롤 진행 바 -->
+  <div id="scroll-progress" class="scroll-progress"></div>
+
+  <!-- 상단 헤더 & 네비게이션 -->
+  <header id="header" class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        <span>DEV.PORTFOLIO</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="skills.html" class="nav-link">Skills</a></li>
+        <li><a href="projects.html" class="nav-link active">Projects</a></li>
+        <li><a href="experience.html" class="nav-link">Experience</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" aria-label="테마 전환" title="테마 전환">🌙</button>
+        <button id="menu-toggle" class="icon-btn menu-toggle" aria-label="메뉴 열기">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding-top: var(--header-height);">
+    <!-- Projects Section -->
+    <section id="projects" class="section projects-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Featured Works</span>
+          <h1 class="section-title">주요 프로젝트</h1>
+          <p class="section-desc">실제 문제를 해결하고 사용자 가치를 극대화한 다양한 웹 프로젝트입니다.</p>
+        </div>
+
+        <!-- 카테고리 필터 버튼 -->
+        <div class="project-filters">
+          <button class="filter-btn active" data-filter="all">전체보기 (All)</button>
+          <button class="filter-btn" data-filter="frontend">Frontend</button>
+          <button class="filter-btn" data-filter="backend">Backend</button>
+          <button class="filter-btn" data-filter="fullstack">Fullstack</button>
+          <button class="filter-btn" data-filter="toy">Toy Project</button>
+        </div>
+
+        <!-- 동적 렌더링 영역 -->
+        <div id="projects-grid" class="projects-grid"></div>
+
+        <div style="text-align: center; margin-top: 4rem;">
+          <a href="experience.html" class="btn btn-secondary">이력 및 활동 확인하기 ➔</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 하단 푸터 -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="hero-socials">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">🐙</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">💼</a>
+        <a href="https://velog.io" target="_blank" rel="noopener noreferrer" class="social-link" title="Blog">✍️</a>
+      </div>
+      <p class="footer-copyright">
+        &copy; 2026 Gildong Hong. Designed & Built with Pure HTML, CSS, JavaScript.
+      </p>
+    </div>
+  </footer>
+
+  <!-- 맨 위로 가기 버튼 -->
+  <button id="back-to-top" class="back-to-top" aria-label="맨 위로 이동" title="맨 위로">↑</button>
+
+  <!-- 프로젝트 상세 모달 -->
+  <div id="project-modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <button class="modal-close" aria-label="닫기">&times;</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Toast 알림 팝업 -->
+  <div id="toast" class="toast" role="alert"></div>
+
+  <!-- JavaScript Scripts -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

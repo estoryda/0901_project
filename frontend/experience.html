@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experience | 홍길동 포트폴리오</title>
+  <meta name="description" content="프론트엔드 개발자 홍길동의 직무 경력, 교육 이력 및 학력 타임라인입니다.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- Google Web Fonts -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- 스크롤 진행 바 -->
+  <div id="scroll-progress" class="scroll-progress"></div>
+
+  <!-- 상단 헤더 & 네비게이션 -->
+  <header id="header" class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        <span>DEV.PORTFOLIO</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="skills.html" class="nav-link">Skills</a></li>
+        <li><a href="projects.html" class="nav-link">Projects</a></li>
+        <li><a href="experience.html" class="nav-link active">Experience</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" aria-label="테마 전환" title="테마 전환">🌙</button>
+        <button id="menu-toggle" class="icon-btn menu-toggle" aria-label="메뉴 열기">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding-top: var(--header-height);">
+    <!-- Experience & Education Section -->
+    <section id="experience" class="section experience-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Experience & Education</span>
+          <h1 class="section-title">이력 및 활동</h1>
+          <p class="section-desc">꾸준한 배움과 도전을 통해 탄탄히 쌓아온 성장 여정입니다.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item fade-in-section">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-period">2026.01 ~ 현재</div>
+              <h3 class="timeline-title">프론트엔드 웹 개발자 (주니어)</h3>
+              <div class="timeline-organization">스타트업 웹 서비스 팀</div>
+              <p class="timeline-desc">
+                - 사내 고객 관리(CRM) 대시보드 프론트엔드 화면 개발 및 성능 최적화<br>
+                - 공통 UI 컴포넌트 모듈화로 개발 생산성 30% 향상 기여<br>
+                - 크로스 브라우징 및 모바일 반응형 웹 접근성 표준 준수
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-in-section">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-period">2025.03 ~ 2025.09</div>
+              <h3 class="timeline-title">웹 풀스택 개발자 부트캠프 수료</h3>
+              <div class="timeline-organization">소프트웨어 아카데미</div>
+              <p class="timeline-desc">
+                - 웹 표준, HTML5/CSS3/JavaScript 및 백엔드 REST API 기초 학습<br>
+                - 팀 프로젝트(커뮤니티 웹앱) 2회 완수 및 최종 우수 프로젝트 선정<br>
+                - Git 기반 팀 협업 및 코드 리뷰 프로세스 체득
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-in-section">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-period">2020.03 ~ 2024.02</div>
+              <h3 class="timeline-title">컴퓨터공학과 졸업</h3>
+              <div class="timeline-organization">한국대학교</div>
+              <p class="timeline-desc">
+                - 자료구조, 알고리즘, 컴퓨터 네트워크, 데이터베이스 등 CS 핵심 기초 이수<br>
+                - 웹 프로그래밍 및 데이터베이스 설계 프로젝트 우수상 수상
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 4rem;">
+          <a href="index.html" class="btn btn-primary">홈으로 돌아가기 🏠</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 하단 푸터 -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="hero-socials">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">🐙</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">💼</a>
+        <a href="https://velog.io" target="_blank" rel="noopener noreferrer" class="social-link" title="Blog">✍️</a>
+      </div>
+      <p class="footer-copyright">
+        &copy; 2026 Gildong Hong. Designed & Built with Pure HTML, CSS, JavaScript.
+      </p>
+    </div>
+  </footer>
+
+  <!-- 맨 위로 가기 버튼 -->
+  <button id="back-to-top" class="back-to-top" aria-label="맨 위로 이동" title="맨 위로">↑</button>
+
+  <!-- Toast 알림 팝업 -->
+  <div id="toast" class="toast" role="alert"></div>
+
+  <!-- JavaScript Scripts -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

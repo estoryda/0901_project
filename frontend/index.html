@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>홍길동 | 프론트엔드 개발자 포트폴리오</title>
+  <meta name="description" content="HTML, CSS, JavaScript를 기반으로 사용자 중심의 가치 있는 웹 경험을 만드는 프론트엔드 개발자 홍길동의 개인 프로필 및 포트폴리오입니다.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- Google Web Fonts (Pretendard & Fira Code) -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- 스크롤 진행 바 -->
+  <div id="scroll-progress" class="scroll-progress"></div>
+
+  <!-- 상단 헤더 & 네비게이션 -->
+  <header id="header" class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        <span>DEV.PORTFOLIO</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="skills.html" class="nav-link">Skills</a></li>
+        <li><a href="projects.html" class="nav-link">Projects</a></li>
+        <li><a href="experience.html" class="nav-link">Experience</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" aria-label="테마 전환" title="테마 전환">🌙</button>
+        <button id="menu-toggle" class="icon-btn menu-toggle" aria-label="메뉴 열기">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-text-area">
+          <div class="hero-intro">👋 안녕하세요, 성장을 즐기는</div>
+          <h1 class="hero-title">
+            프론트엔드 개발자 <br>
+            <span class="gradient-text">홍길동</span>입니다.
+          </h1>
+          <div class="hero-subtitle">
+            <span id="typing-text"></span>
+            <span class="typing-cursor"></span>
+          </div>
+          <p class="hero-desc">
+            사용자 중심의 직관적인 UI/UX와 탄탄한 웹 표준 마크업을 지향합니다.
+            복잡한 문제를 단순하고 명쾌한 코드로 풀어내는 과정을 즐깁니다.
+          </p>
+          <div class="hero-cta">
+            <a href="about.html" class="btn btn-primary">
+              자기소개 보기 ➔
+            </a>
+            <a href="projects.html" class="btn btn-secondary">
+              프로젝트 둘러보기 💻
+            </a>
+          </div>
+          <div class="hero-socials">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub" aria-label="GitHub">
+              🐙
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn" aria-label="LinkedIn">
+              💼
+            </a>
+            <a href="https://velog.io" target="_blank" rel="noopener noreferrer" class="social-link" title="Blog" aria-label="Blog">
+              ✍️
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="avatar-wrapper">
+            <div class="avatar-blob"></div>
+            <div class="avatar-card">
+              <div class="avatar-img-wrapper">
+                <img src="assets/images/profile.jpg" alt="프로필 사진" class="avatar-img">
+              </div>
+              <h2 class="avatar-name">홍길동 (Gil-dong Hong)</h2>
+              <p class="avatar-role">Junior Frontend Engineer</p>
+              <div class="avatar-status">
+                <span class="status-dot"></span>
+                <span>새로운 프로젝트 참여 가능 (Open to Work)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Portfolio Highlights Section -->
+    <section class="section" style="padding-top: 2rem;">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Explore Portfolio</span>
+          <h2 class="section-title">포트폴리오 둘러보기</h2>
+          <p class="section-desc">원하시는 메뉴를 선택하여 상세한 정보를 확인해 보세요.</p>
+        </div>
+
+        <div class="skills-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+          <a href="about.html" class="skill-category-card fade-in-section" style="text-decoration: none; color: inherit; cursor: pointer;">
+            <div class="category-title" style="margin-bottom: 0.75rem;">
+              <span style="font-size: 1.75rem;">🙋‍♂️</span> About Me
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">
+              개발 철학, 핵심 가치, 기본 정보 및 협업 방식을 소개합니다.
+            </p>
+            <span class="project-link">자세히 보기 ➔</span>
+          </a>
+
+          <a href="skills.html" class="skill-category-card fade-in-section" style="text-decoration: none; color: inherit; cursor: pointer;">
+            <div class="category-title" style="margin-bottom: 0.75rem;">
+              <span style="font-size: 1.75rem;">⚡</span> Skills
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">
+              Frontend, Backend, Tools 및 숙련도별 기술 스택을 정리했습니다.
+            </p>
+            <span class="project-link">기술 스택 확인 ➔</span>
+          </a>
+
+          <a href="projects.html" class="skill-category-card fade-in-section" style="text-decoration: none; color: inherit; cursor: pointer;">
+            <div class="category-title" style="margin-bottom: 0.75rem;">
+              <span style="font-size: 1.75rem;">💻</span> Projects
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">
+              직접 개발한 주요 웹 프로젝트의 라이브 데모와 깃허브 소스코드를 제공합니다.
+            </p>
+            <span class="project-link">프로젝트 보기 ➔</span>
+          </a>
+
+          <a href="experience.html" class="skill-category-card fade-in-section" style="text-decoration: none; color: inherit; cursor: pointer;">
+            <div class="category-title" style="margin-bottom: 0.75rem;">
+              <span style="font-size: 1.75rem;">📜</span> Experience
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">
+              직무 경력, 부트캠프 수료 이력 및 학력 타임라인을 확인하실 수 있습니다.
+            </p>
+            <span class="project-link">이력 확인 ➔</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 하단 푸터 -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="hero-socials">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">🐙</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">💼</a>
+        <a href="https://velog.io" target="_blank" rel="noopener noreferrer" class="social-link" title="Blog">✍️</a>
+      </div>
+      <p class="footer-copyright">
+        &copy; 2026 Gildong Hong. Designed & Built with Pure HTML, CSS, JavaScript.
+      </p>
+    </div>
+  </footer>
+
+  <!-- 맨 위로 가기 버튼 -->
+  <button id="back-to-top" class="back-to-top" aria-label="맨 위로 이동" title="맨 위로">↑</button>
+
+  <!-- Toast 알림 팝업 -->
+  <div id="toast" class="toast" role="alert"></div>
+
+  <!-- JavaScript Scripts -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

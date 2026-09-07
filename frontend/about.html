@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me | 홍길동 포트폴리오</title>
+  <meta name="description" content="프론트엔드 개발자 홍길동의 자기소개, 개발 철학 및 인적사항을 소개합니다.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- Google Web Fonts -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- 스크롤 진행 바 -->
+  <div id="scroll-progress" class="scroll-progress"></div>
+
+  <!-- 상단 헤더 & 네비게이션 -->
+  <header id="header" class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        <span>DEV.PORTFOLIO</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link active">About</a></li>
+        <li><a href="skills.html" class="nav-link">Skills</a></li>
+        <li><a href="projects.html" class="nav-link">Projects</a></li>
+        <li><a href="experience.html" class="nav-link">Experience</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" aria-label="테마 전환" title="테마 전환">🌙</button>
+        <button id="menu-toggle" class="icon-btn menu-toggle" aria-label="메뉴 열기">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding-top: var(--header-height);">
+    <!-- About Me Section -->
+    <section id="about" class="section about-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">About Me</span>
+          <h1 class="section-title">기본에 충실하고 협업을 소중히 여깁니다</h1>
+          <p class="section-desc">지속적인 학습과 열린 소통을 통해 사용자와 팀 모두에게 긍정적인 가치를 전합니다.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text fade-in-section">
+            <h3>"코드 한 줄에도 이유와 책임을 담습니다."</h3>
+            <p>
+              HTML, CSS, JavaScript의 기초를 탄탄히 다지며 웹 접근성과 반응형 디자인을 세심하게 고려합니다.
+              단순히 화면을 구현하는 것에 그치지 않고, 사용자의 사용 편의성과 코드의 재사용성을 함께 고민합니다.
+            </p>
+            <p>
+              새로운 기술을 빠르게 습득하여 프로젝트에 적용하는 것을 좋아하며,
+              팀원들과의 적극적인 피드백을 통해 더 나은 결과물을 만들어내는 과정에서 큰 성취감을 느낍니다.
+            </p>
+
+            <div class="about-info-list">
+              <div class="about-info-item">
+                <div class="info-label">이름</div>
+                <div class="info-value">홍길동</div>
+              </div>
+              <div class="about-info-item">
+                <div class="info-label">이메일</div>
+                <div class="info-value">gildong.dev@example.com</div>
+              </div>
+              <div class="about-info-item">
+                <div class="info-label">위치</div>
+                <div class="info-value">대한민국 서울</div>
+              </div>
+              <div class="about-info-item">
+                <div class="info-label">학력</div>
+                <div class="info-value">컴퓨터공학 전공 (학사)</div>
+              </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+              <a href="skills.html" class="btn btn-primary">보유 기술 보러가기 ➔</a>
+            </div>
+          </div>
+
+          <div class="about-cards fade-in-section">
+            <div class="feature-card">
+              <div class="feature-icon">🚀</div>
+              <div>
+                <h4>빠른 학습력 & 실행력</h4>
+                <p>새로운 프레임워크와 웹 표준 스펙을 능동적으로 학습하고 실제 토이 프로젝트에 빠르게 적용합니다.</p>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">🎨</div>
+              <div>
+                <h4>섬세한 UI/UX 구현</h4>
+                <p>디자인 의도를 정확히 파악하여 모바일/데스크톱 모든 디바이스에서 최적의 인터랙션을 제공합니다.</p>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">🤝</div>
+              <div>
+                <h4>열린 소통과 문서화</h4>
+                <p>기획서, API 명세서, 컴포넌트 가이드를 체계적으로 문서화하여 원활한 협업 환경을 구축합니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 하단 푸터 -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="hero-socials">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">🐙</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">💼</a>
+        <a href="https://velog.io" target="_blank" rel="noopener noreferrer" class="social-link" title="Blog">✍️</a>
+      </div>
+      <p class="footer-copyright">
+        &copy; 2026 Gildong Hong. Designed & Built with Pure HTML, CSS, JavaScript.
+      </p>
+    </div>
+  </footer>
+
+  <!-- 맨 위로 가기 버튼 -->
+  <button id="back-to-top" class="back-to-top" aria-label="맨 위로 이동" title="맨 위로">↑</button>
+
+  <!-- Toast 알림 팝업 -->
+  <div id="toast" class="toast" role="alert"></div>
+
+  <!-- JavaScript Scripts -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills | 홍길동 포트폴리오</title>
+  <meta name="description" content="프론트엔드 개발자 홍길동의 보유 기술 스택 및 숙련도 안내입니다.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- Google Web Fonts -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- 스크롤 진행 바 -->
+  <div id="scroll-progress" class="scroll-progress"></div>
+
+  <!-- 상단 헤더 & 네비게이션 -->
+  <header id="header" class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        <span>DEV.PORTFOLIO</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="skills.html" class="nav-link active">Skills</a></li>
+        <li><a href="projects.html" class="nav-link">Projects</a></li>
+        <li><a href="experience.html" class="nav-link">Experience</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" aria-label="테마 전환" title="테마 전환">🌙</button>
+        <button id="menu-toggle" class="icon-btn menu-toggle" aria-label="메뉴 열기">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding-top: var(--header-height);">
+    <!-- Skills Section -->
+    <section id="skills" class="section skills-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Technical Skills</span>
+          <h1 class="section-title">보유 기술 및 숙련도</h1>
+          <p class="section-desc">탄탄한 웹 표준 기반의 프론트엔드 역량을 중심으로 다양한 도구들을 능숙하게 활용합니다.</p>
+        </div>
+
+        <div class="skills-grid">
+          <!-- Frontend Category -->
+          <div class="skill-category-card fade-in-section">
+            <h3 class="category-title">🌐 Frontend</h3>
+            <div class="skill-list">
+              <div class="skill-item">
+                <div class="skill-info">
+                  <span>HTML5 / Semantic Markup</span>
+                  <span>90%</span>
+                </div>
+                <div class="skill-bar-bg">
+                  <div class="skill-bar-fill" data-level="90"></div>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-info">
+                  <span>CSS3 / Flexbox / Grid / Animation</span>
+                  <span>85%</span>
+                </div>
+                <div class="skill-bar-bg">
+                  <div class="skill-bar-fill" data-level="85"></div>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-info">
+                  <span>JavaScript (ES6+) / DOM API</span>
+                  <span>80%</span>
+                </div>
+                <div class="skill-bar-bg">
+                  <div class="skill-bar-fill" data-level="80"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-tags">
+              <span class="skill-tag">Responsive Design</span>
+              <span class="skill-tag">Web Accessibility</span>
+              <span class="skill-tag">Vanilla JS</span>
+            </div>
+          </div>
+
+          <!-- Backend & Database Category -->
+          <div class="skill-category-card fade-in-section">
+            <h3 class="category-title">⚙️ Backend & DB</h3>
+            <div class="skill-list">
+              <div class="skill-item">
+                <div class="skill-info">
+                  <span>Node.js / Express</span>
+                  <span>70%</span>
+                </div>
+                <div class="skill-bar-bg">
+                  <div class="skill-bar-fill" data-level="70"></div>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-info">
+                  <span>RESTful API Design</span>
+                  <span>75%</span>
+                </div>
+                <div class="skill-bar-bg">
+                  <div class="skill-bar-fill" data-level="75"></div>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-info">
+                  <span>MySQL / MongoDB</span>
+                  <span>65%</span>
+                </div>
+                <div class="skill-bar-bg">
+                  <div class="skill-bar-fill" data-level="65"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-tags">
+              <span class="skill-tag">JWT Auth</span>
+              <span class="skill-tag">CRUD</span>
+              <span class="skill-tag">JSON</span>
+            </div>
+          </div>
+
+          <!-- Tools & Collaboration Category -->
+          <div class="skill-category-card fade-in-section">
+            <h3 class="category-title">🛠️ Tools & DevOps</h3>
+            <div class="skill-list">
+              <div class="skill-item">
+                <div class="skill-info">
+                  <span>Git / GitHub</span>
+                  <span>85%</span>
+                </div>
+                <div class="skill-bar-bg">
+                  <div class="skill-bar-fill" data-level="85"></div>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-info">
+                  <span>Figma / UI Prototyping</span>
+                  <span>75%</span>
+                </div>
+                <div class="skill-bar-bg">
+                  <div class="skill-bar-fill" data-level="75"></div>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-info">
+                  <span>VS Code / Chrome DevTools</span>
+                  <span>90%</span>
+                </div>
+                <div class="skill-bar-bg">
+                  <div class="skill-bar-fill" data-level="90"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-tags">
+              <span class="skill-tag">GitHub Actions</span>
+              <span class="skill-tag">Postman</span>
+              <span class="skill-tag">Markdown</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 4rem;">
+          <a href="projects.html" class="btn btn-primary">이 기술들을 활용한 프로젝트 보러가기 ➔</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 하단 푸터 -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="hero-socials">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">🐙</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">💼</a>
+        <a href="https://velog.io" target="_blank" rel="noopener noreferrer" class="social-link" title="Blog">✍️</a>
+      </div>
+      <p class="footer-copyright">
+        &copy; 2026 Gildong Hong. Designed & Built with Pure HTML, CSS, JavaScript.
+      </p>
+    </div>
+  </footer>
+
+  <!-- 맨 위로 가기 버튼 -->
+  <button id="back-to-top" class="back-to-top" aria-label="맨 위로 이동" title="맨 위로">↑</button>
+
+  <!-- Toast 알림 팝업 -->
+  <div id="toast" class="toast" role="alert"></div>
+
+  <!-- JavaScript Scripts -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
