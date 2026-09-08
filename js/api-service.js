@@ -8,7 +8,7 @@
  */
 
 // ⚠️ 배포 후 발급받은 '웹 앱 URL'을 여기에 입력하세요. (비어있으면 로컬 저장소 모드로 작동)
-export const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxBKGoKnYl87KcMv-wzApYa37Nq2kCBsBXvekO5pjc8_9A2l3pLawJ-P6JOGR4AeWXL/exec';
+export const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzQ6-sPYzLj_iFp_BZwSu5lRbsBz_-wz6i8FqIV5rJ9obLPaHQT1SXbymNSMgxPZ3Wc/exec';
 
 /**
  * 스프레드시트 백엔드 회원가입 API 호출
