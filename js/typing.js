@@ -1,6 +1,6 @@
 /**
  * Typing Effect Module
- * Creates a dynamic typing and erasing animation for the hero section subtitle.
+ * Creates a dynamic typing and erasing animation for the blog hero subtitle.
  */
 
 export function initTyping() {
@@ -8,19 +8,19 @@ export function initTyping() {
   if (!typingElement) return;
 
   const phrases = [
-    'Frontend Developer',
-    'HTML / CSS / JavaScript Specialist',
-    'UI/UX Passionate Creator',
-    'Continuous Problem Solver'
+    'Frontend Architecture & React',
+    'Web Performance & Optimization',
+    'Modern JavaScript & TypeScript',
+    'Design Systems & Clean Code'
   ];
 
   let phraseIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
-  const typeSpeed = 100;
-  const deleteSpeed = 50;
+  const typeSpeed = 80;
+  const deleteSpeed = 40;
   const pauseEnd = 2000;
-  const pauseStart = 500;
+  const pauseStart = 400;
 
   function type() {
     const currentPhrase = phrases[phraseIndex];

@@ -15,7 +15,8 @@ export function initScroll() {
   const currentPath = window.location.pathname.split('/').pop() || 'index.html';
   navLinks.forEach(link => {
     const href = link.getAttribute('href');
-    if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+    const isDetailUnderPosts = currentPath === 'post-detail.html' && href === 'posts.html';
+    if (href === currentPath || (currentPath === '' && href === 'index.html') || isDetailUnderPosts) {
       link.classList.add('active');
     } else {
       link.classList.remove('active');

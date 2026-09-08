@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>홍길동 | 프론트엔드 개발자 포트폴리오</title>
-  <meta name="description" content="HTML, CSS, JavaScript를 기반으로 사용자 중심의 가치 있는 웹 경험을 만드는 프론트엔드 개발자 홍길동의 개인 프로필 및 포트폴리오입니다.">
+  <title>DEV.LOG | 기술과 성장을 기록하는 개인 블로그</title>
+  <meta name="description" content="모던 웹 프론트엔드 개발, 성능 최적화, 아키텍처 및 소프트웨어 엔지니어링 경험을 공유하는 홍길동의 기술 블로그입니다.">
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
 
-  <!-- Google Web Fonts (Pretendard & Fira Code) -->
+  <!-- Fonts (Pretendard & Fira Code) -->
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
   <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/blog.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
@@ -27,15 +28,14 @@
     <div class="container nav-container">
       <a href="index.html" class="logo">
         <span class="logo-dot"></span>
-        <span>DEV.PORTFOLIO</span>
+        <span>DEV.LOG</span>
       </a>
 
       <ul class="nav-links">
-        <li><a href="index.html" class="nav-link active">Home</a></li>
-        <li><a href="about.html" class="nav-link">About</a></li>
-        <li><a href="skills.html" class="nav-link">Skills</a></li>
-        <li><a href="projects.html" class="nav-link">Projects</a></li>
-        <li><a href="experience.html" class="nav-link">Experience</a></li>
+        <li><a href="index.html" class="nav-link active">홈</a></li>
+        <li><a href="posts.html" class="nav-link">게시글 목록</a></li>
+        <li><a href="about.html" class="nav-link">소개</a></li>
+        <!-- auth 아이템은 js/auth.js 에 의해 동적 렌더링 (로그인/회원가입 또는 프로필/로그아웃) -->
       </ul>
 
       <div class="nav-actions">
@@ -46,112 +46,138 @@
   </header>
 
   <main>
-    <!-- 1. Hero Section -->
-    <section id="hero" class="hero-section">
-      <div class="container hero-grid">
-        <div class="hero-text-area">
-          <div class="hero-intro">👋 안녕하세요, 성장을 즐기는</div>
-          <h1 class="hero-title">
-            프론트엔드 개발자 <br>
-            <span class="gradient-text">홍길동</span>입니다.
-          </h1>
-          <div class="hero-subtitle">
-            <span id="typing-text"></span>
-            <span class="typing-cursor"></span>
-          </div>
-          <p class="hero-desc">
-            사용자 중심의 직관적인 UI/UX와 탄탄한 웹 표준 마크업을 지향합니다.
-            복잡한 문제를 단순하고 명쾌한 코드로 풀어내는 과정을 즐깁니다.
-          </p>
-          <div class="hero-cta">
-            <a href="about.html" class="btn btn-primary">
-              자기소개 보기 ➔
-            </a>
-            <a href="projects.html" class="btn btn-secondary">
-              프로젝트 둘러보기 💻
-            </a>
-          </div>
-          <div class="hero-socials">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub" aria-label="GitHub">
-              🐙
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn" aria-label="LinkedIn">
-              💼
-            </a>
-            <a href="https://velog.io" target="_blank" rel="noopener noreferrer" class="social-link" title="Blog" aria-label="Blog">
-              ✍️
-            </a>
-          </div>
+    <!-- 1. Blog Hero Section -->
+    <section class="blog-hero">
+      <div class="container">
+        <div class="blog-hero-badge">
+          <span>✨</span>
+          <span>Engineering & Life Tech Blog</span>
         </div>
+        <h1 class="blog-hero-title">
+          배움을 정리하고 지식을 나누는 <br>
+          <span class="gradient-text">개발자 기술 블로그</span>
+        </h1>
+        <div class="hero-subtitle" style="margin-bottom: 1.5rem;">
+          <span id="typing-text"></span>
+          <span class="typing-cursor"></span>
+        </div>
+        <p class="blog-hero-desc">
+          프론트엔드 아키텍처, 성능 최적화, 모던 자바스크립트 및 실무 개발 과정에서의 깊은 고민과 인사이트를 기록합니다.
+        </p>
 
-        <div class="hero-visual">
-          <div class="avatar-wrapper">
-            <div class="avatar-blob"></div>
-            <div class="avatar-card">
-              <div class="avatar-img-wrapper">
-                <img src="assets/images/profile.jpg" alt="프로필 사진" class="avatar-img">
-              </div>
-              <h2 class="avatar-name">홍길동 (Gil-dong Hong)</h2>
-              <p class="avatar-role">Junior Frontend Engineer</p>
-              <div class="avatar-status">
-                <span class="status-dot"></span>
-                <span>새로운 프로젝트 참여 가능 (Open to Work)</span>
-              </div>
-            </div>
-          </div>
+        <!-- 통합 검색 폼 -->
+        <form id="home-search-form" class="blog-search-bar">
+          <input 
+            type="text" 
+            id="home-search-input" 
+            class="blog-search-input" 
+            placeholder="궁금한 기술 키워드를 검색해 보세요 (예: React, 최적화, CSS...)" 
+            autocomplete="off"
+          />
+          <button type="submit" class="blog-search-btn" title="검색" aria-label="검색">🔍</button>
+        </form>
+
+        <!-- 추천 태그 칩스 -->
+        <div class="hero-tag-list">
+          <span style="font-size: 0.85rem; color: var(--text-muted); align-self: center;">인기 태그:</span>
+          <a href="posts.html?q=React" class="tag-chip">#React</a>
+          <a href="posts.html?q=Architecture" class="tag-chip">#Architecture</a>
+          <a href="posts.html?q=WebPerf" class="tag-chip">#WebPerf</a>
+          <a href="posts.html?q=JavaScript" class="tag-chip">#JavaScript</a>
+          <a href="posts.html?q=CSS3" class="tag-chip">#CSS3</a>
+          <a href="posts.html?q=Career" class="tag-chip">#Career</a>
         </div>
       </div>
     </section>
 
-    <!-- 2. Portfolio Highlights Section -->
-    <section class="section" style="padding-top: 2rem;">
+    <!-- 2. Main Content & Sidebar Grid Section -->
+    <section class="section" style="padding-top: 3rem;">
       <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Explore Portfolio</span>
-          <h2 class="section-title">포트폴리오 둘러보기</h2>
-          <p class="section-desc">원하시는 메뉴를 선택하여 상세한 정보를 확인해 보세요.</p>
-        </div>
+        <!-- Featured Post Spotlight -->
+        <div id="home-featured-posts"></div>
 
-        <div class="skills-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-          <a href="about.html" class="skill-category-card fade-in-section" style="text-decoration: none; color: inherit; cursor: pointer;">
-            <div class="category-title" style="margin-bottom: 0.75rem;">
-              <span style="font-size: 1.75rem;">🙋‍♂️</span> About Me
+        <!-- 2-Column Layout -->
+        <div class="blog-layout-grid">
+          <!-- 좌측 메인 피드 -->
+          <div class="blog-main-content">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.75rem;">
+              <div>
+                <span class="section-tag">Latest Articles</span>
+                <h2 style="font-size: 1.75rem; font-weight: 800; margin-top: 0.35rem;">최신 게시글</h2>
+              </div>
+              <a href="posts.html" class="btn btn-secondary" style="padding: 0.45rem 1rem; font-size: 0.875rem;">
+                전체 글 보기 ➔
+              </a>
             </div>
-            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">
-              개발 철학, 핵심 가치, 기본 정보 및 협업 방식을 소개합니다.
-            </p>
-            <span class="project-link">자세히 보기 ➔</span>
-          </a>
 
-          <a href="skills.html" class="skill-category-card fade-in-section" style="text-decoration: none; color: inherit; cursor: pointer;">
-            <div class="category-title" style="margin-bottom: 0.75rem;">
-              <span style="font-size: 1.75rem;">⚡</span> Skills
+            <!-- Recent Posts Grid -->
+            <div id="home-recent-posts" class="posts-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+              <!-- JavaScript에 의해 동적 렌더링 -->
             </div>
-            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">
-              Frontend, Backend, Tools 및 숙련도별 기술 스택을 정리했습니다.
-            </p>
-            <span class="project-link">기술 스택 확인 ➔</span>
-          </a>
+          </div>
 
-          <a href="projects.html" class="skill-category-card fade-in-section" style="text-decoration: none; color: inherit; cursor: pointer;">
-            <div class="category-title" style="margin-bottom: 0.75rem;">
-              <span style="font-size: 1.75rem;">💻</span> Projects
+          <!-- 우측 사이드바 -->
+          <aside class="blog-sidebar">
+            <!-- 1. 작가 프로필 위젯 -->
+            <div class="sidebar-widget author-widget-card">
+              <img src="assets/images/profile.jpg" alt="블로그 작성자 홍길동" class="author-widget-avatar">
+              <h3 class="author-widget-name">홍길동 (Gil-dong)</h3>
+              <p class="author-widget-role">Frontend Engineer</p>
+              <p class="author-widget-bio">
+                코드로 세상에 긍정적인 가치를 더하는 것을 좋아합니다. 웹 표준과 클린 아키텍처에 깊은 관심이 있습니다.
+              </p>
+              <div style="display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 1rem;">
+                <a href="profile.html" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">
+                  프로필 보기
+                </a>
+                <button id="copy-email-btn" data-email="developer@example.com" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" title="이메일 복사">
+                  📧 메일 복사
+                </button>
+              </div>
+              <div class="hero-socials" style="justify-content: center;">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">🐙</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">💼</a>
+                <a href="about.html" class="social-link" title="About Me">🙋‍♂️</a>
+              </div>
             </div>
-            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">
-              직접 개발한 주요 웹 프로젝트의 라이브 데모와 깃허브 소스코드를 제공합니다.
-            </p>
-            <span class="project-link">프로젝트 보기 ➔</span>
-          </a>
 
-          <a href="experience.html" class="skill-category-card fade-in-section" style="text-decoration: none; color: inherit; cursor: pointer;">
-            <div class="category-title" style="margin-bottom: 0.75rem;">
-              <span style="font-size: 1.75rem;">📜</span> Experience
+            <!-- 2. 카테고리 위젯 -->
+            <div class="sidebar-widget">
+              <h4 class="widget-title">📁 카테고리</h4>
+              <ul id="sidebar-categories" class="widget-category-list">
+                <!-- JavaScript 동적 생성 -->
+              </ul>
             </div>
-            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">
-              직무 경력, 부트캠프 수료 이력 및 학력 타임라인을 확인하실 수 있습니다.
-            </p>
-            <span class="project-link">이력 확인 ➔</span>
-          </a>
+
+            <!-- 3. 인기 태그 클라우드 -->
+            <div class="sidebar-widget">
+              <h4 class="widget-title">🏷️ 인기 태그</h4>
+              <div id="sidebar-tags" style="display: flex; flex-wrap: wrap; gap: 0.45rem;">
+                <!-- JavaScript 동적 생성 -->
+              </div>
+            </div>
+
+            <!-- 4. 뉴스레터 위젯 -->
+            <div class="sidebar-widget" style="background: radial-gradient(circle at top, var(--accent-light) 0%, var(--bg-surface) 100%);">
+              <h4 class="widget-title">📬 블로그 구독하기</h4>
+              <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1rem;">
+                새로운 기술 아티클과 프론트엔드 최신 소식을 이메일로 가장 먼저 받아보세요.
+              </p>
+              <form id="newsletter-form" style="display: flex; flex-direction: column; gap: 0.6rem;">
+                <input 
+                  type="email" 
+                  id="newsletter-email" 
+                  class="form-input" 
+                  placeholder="name@example.com" 
+                  required 
+                  style="font-size: 0.875rem; padding: 0.6rem 0.8rem;"
+                />
+                <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 0.875rem; padding: 0.6rem;">
+                  뉴스레터 구독
+                </button>
+              </form>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -163,10 +189,10 @@
       <div class="hero-socials">
         <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">🐙</a>
         <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">💼</a>
-        <a href="https://velog.io" target="_blank" rel="noopener noreferrer" class="social-link" title="Blog">✍️</a>
+        <a href="posts.html" class="social-link" title="게시글 목록">📚</a>
       </div>
       <p class="footer-copyright">
-        &copy; 2026 Gildong Hong. Designed & Built with Pure HTML, CSS, JavaScript.
+        &copy; 2026 DEV.LOG. All rights reserved. Built with Pure HTML, CSS, JavaScript.
       </p>
     </div>
   </footer>
@@ -177,7 +203,7 @@
   <!-- Toast 알림 팝업 -->
   <div id="toast" class="toast" role="alert"></div>
 
-  <!-- JavaScript Scripts -->
+  <!-- Scripts -->
   <script type="module" src="js/main.js"></script>
 </body>
 </html>

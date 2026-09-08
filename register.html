@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 | DEV.LOG</title>
+  <meta name="description" content="DEV.LOG 기술 블로그에 가입하여 다양한 개발 지식을 나누고 아티클을 북마크하세요.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- Fonts -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/blog.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- 상단 헤더 & 네비게이션 -->
+  <header id="header" class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        <span>DEV.LOG</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">홈</a></li>
+        <li><a href="posts.html" class="nav-link">게시글 목록</a></li>
+        <li><a href="about.html" class="nav-link">소개</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" aria-label="테마 전환" title="테마 전환">🌙</button>
+        <button id="menu-toggle" class="icon-btn menu-toggle" aria-label="메뉴 열기">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="auth-wrapper">
+    <div class="auth-card" style="max-width: 520px;">
+      <div class="auth-header">
+        <div class="auth-logo">⚡</div>
+        <h1 class="auth-title">회원가입</h1>
+        <p class="auth-subtitle">DEV.LOG의 새로운 멤버가 되어 기술을 함께 탐험하세요.</p>
+      </div>
+
+      <form id="register-form">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="reg-name" class="form-label">이름 <span style="color:#ef4444;">*</span></label>
+            <input 
+              type="text" 
+              id="reg-name" 
+              class="form-input" 
+              placeholder="예: 홍길동" 
+              required 
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="reg-username" class="form-label">닉네임(아이디) <span style="color:#ef4444;">*</span></label>
+            <input 
+              type="text" 
+              id="reg-username" 
+              class="form-input" 
+              placeholder="예: dev_hong" 
+              required 
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-email" class="form-label">이메일 주소 <span style="color:#ef4444;">*</span></label>
+          <input 
+            type="email" 
+            id="reg-email" 
+            class="form-input" 
+            placeholder="developer@example.com" 
+            required 
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="reg-role" class="form-label">관심 직무 / 분야</label>
+          <select id="reg-role" class="form-select">
+            <option value="Frontend Engineer">Frontend Engineer (프론트엔드 엔지니어)</option>
+            <option value="Backend Developer">Backend Developer (백엔드 개발자)</option>
+            <option value="Fullstack Engineer">Fullstack Engineer (풀스택 엔지니어)</option>
+            <option value="DevOps / Cloud">DevOps / Cloud Engineer (인프라/클라우드)</option>
+            <option value="UI/UX Designer">UI/UX Designer (디자이너)</option>
+            <option value="Tech Student">Tech Student (학생 / 취준생)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-password" class="form-label">비밀번호 (6자리 이상) <span style="color:#ef4444;">*</span></label>
+          <input 
+            type="password" 
+            id="reg-password" 
+            class="form-input" 
+            placeholder="••••••••" 
+            minlength="6" 
+            required 
+            autocomplete="new-password"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="reg-password-confirm" class="form-label">비밀번호 확인 <span style="color:#ef4444;">*</span></label>
+          <input 
+            type="password" 
+            id="reg-password-confirm" 
+            class="form-input" 
+            placeholder="••••••••" 
+            minlength="6" 
+            required 
+            autocomplete="new-password"
+          />
+          <div id="password-match-msg" class="form-error-msg" style="font-weight: 600;"></div>
+        </div>
+
+        <div class="form-group" style="margin-top: 1rem;">
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="reg-terms" required>
+            <span>[필수] 이용약관 및 개인정보 수집·이용에 동의합니다.</span>
+          </label>
+        </div>
+
+        <div id="reg-error" class="form-error-msg" style="margin-bottom: 1rem; text-align: center;"></div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem; font-size: 1rem;">
+          회원가입 완료
+        </button>
+      </form>
+
+      <div style="text-align: center; margin-top: 1.75rem; font-size: 0.9rem; color: var(--text-secondary);">
+        이미 계정이 있으신가요? 
+        <a href="login.html" style="color: var(--accent-primary); font-weight: 600; text-decoration: none;">
+          로그인하기 ➔
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast 알림 팝업 -->
+  <div id="toast" class="toast" role="alert"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

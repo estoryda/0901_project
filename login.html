@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인 | DEV.LOG</title>
+  <meta name="description" content="DEV.LOG 기술 블로그에 로그인하여 다양한 아티클과 의견을 나눠보세요.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- Fonts -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/blog.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- 상단 헤더 & 네비게이션 -->
+  <header id="header" class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        <span>DEV.LOG</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">홈</a></li>
+        <li><a href="posts.html" class="nav-link">게시글 목록</a></li>
+        <li><a href="about.html" class="nav-link">소개</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" aria-label="테마 전환" title="테마 전환">🌙</button>
+        <button id="menu-toggle" class="icon-btn menu-toggle" aria-label="메뉴 열기">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo">⚡</div>
+        <h1 class="auth-title">로그인</h1>
+        <p class="auth-subtitle">DEV.LOG에 오신 것을 환영합니다!</p>
+      </div>
+
+      <!-- 이미 로그인된 경우 안내 -->
+      <div id="already-logged-notice" class="demo-account-box" style="display: none; margin-bottom: 1.5rem; flex-direction: column; text-align: center;"></div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="login-email" class="form-label">이메일 또는 아이디</label>
+          <input 
+            type="text" 
+            id="login-email" 
+            class="form-input" 
+            placeholder="developer@example.com 또는 gildong_dev" 
+            value="developer@example.com"
+            required
+            autocomplete="username"
+          />
+        </div>
+
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <label for="login-password" class="form-label" style="margin-bottom: 0;">비밀번호</label>
+            <a href="#" onclick="alert('데모 환경에서는 기본 비밀번호(password123) 또는 테스트 계정 로그인을 이용해 주세요.'); return false;" style="font-size: 0.8rem; color: var(--accent-primary); text-decoration: none;">
+              비밀번호 찾기
+            </a>
+          </div>
+          <div style="position: relative;">
+            <input 
+              type="password" 
+              id="login-password" 
+              class="form-input" 
+              placeholder="••••••••" 
+              value="password123"
+              required
+              autocomplete="current-password"
+              style="padding-right: 2.75rem;"
+            />
+            <button 
+              type="button" 
+              id="toggle-password-btn" 
+              style="position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem; padding: 0;"
+              title="비밀번호 보기/숨기기"
+            >
+              👁️
+            </button>
+          </div>
+          <div id="login-error" class="form-error-msg"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="remember-me" checked>
+            <span>로그인 상태 유지</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem; font-size: 1rem;">
+          로그인
+        </button>
+      </form>
+
+      <!-- 테스트 계정 원클릭 간편 로그인 안내 -->
+      <div class="demo-account-box">
+        <div>
+          <div style="font-weight: 700; color: var(--accent-primary); margin-bottom: 0.2rem;">⚡ 테스트용 원클릭 로그인</div>
+          <div style="font-size: 0.8rem; color: var(--text-muted);">클릭 한 번으로 데모 회원 세션에 즉시 접속합니다.</div>
+        </div>
+        <button type="button" id="demo-login-btn" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; white-space: nowrap;">
+          체험하기
+        </button>
+      </div>
+
+      <div class="auth-divider">
+        <span>또는 소셜 계정으로 로그인</span>
+      </div>
+
+      <div class="social-btns-grid">
+        <button type="button" id="social-github-btn" class="social-btn">
+          <span>🐙</span> GitHub
+        </button>
+        <button type="button" id="social-google-btn" class="social-btn">
+          <span>🔍</span> Google
+        </button>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: var(--text-secondary);">
+        아직 계정이 없으신가요? 
+        <a href="register.html" style="color: var(--accent-primary); font-weight: 600; text-decoration: none;">
+          회원가입하기 ➔
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast 알림 팝업 -->
+  <div id="toast" class="toast" role="alert"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

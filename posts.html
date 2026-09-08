@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전체 게시글 | DEV.LOG</title>
+  <meta name="description" content="모던 프론트엔드, 성능 최적화, 웹 아키텍처 등 다양한 기술 아티클을 확인하세요.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- Fonts -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/blog.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- 스크롤 진행 바 -->
+  <div id="scroll-progress" class="scroll-progress"></div>
+
+  <!-- 상단 헤더 & 네비게이션 -->
+  <header id="header" class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        <span>DEV.LOG</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">홈</a></li>
+        <li><a href="posts.html" class="nav-link active">게시글 목록</a></li>
+        <li><a href="about.html" class="nav-link">소개</a></li>
+        <!-- auth 아이템 동적 렌더링 -->
+      </ul>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" aria-label="테마 전환" title="테마 전환">🌙</button>
+        <button id="menu-toggle" class="icon-btn menu-toggle" aria-label="메뉴 열기">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding-top: calc(var(--header-height) + 2rem);">
+    <section class="section" style="padding-top: 1rem;">
+      <div class="container">
+        <!-- Page Header -->
+        <div class="section-header" style="text-align: left; margin-bottom: 2.5rem;">
+          <span class="section-tag">All Articles</span>
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h1 class="section-title" style="margin-bottom: 0.35rem;">블로그 아티클</h1>
+              <p class="section-desc" style="margin: 0;" id="posts-count-display">지식과 경험을 정성껏 기록한 글 목록입니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="filter-bar">
+          <!-- 카테고리 탭 (동적 렌더링) -->
+          <div id="category-tabs" class="filter-categories"></div>
+
+          <!-- 검색창 & 정렬 셀렉트 -->
+          <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+            <div style="position: relative; min-width: 220px;">
+              <input 
+                type="text" 
+                id="posts-search-input" 
+                class="form-input" 
+                placeholder="제목, 내용, 태그 검색..." 
+                style="padding: 0.5rem 2.2rem 0.5rem 0.9rem; font-size: 0.9rem; border-radius: var(--radius-full);"
+              />
+              <span style="position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none;">🔍</span>
+            </div>
+
+            <select id="posts-sort-select" class="filter-sort-select" title="정렬 기준">
+              <option value="latest">최신순</option>
+              <option value="popular">인기순 (추천순)</option>
+              <option value="views">조회수순</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Posts Grid (동적 렌더링) -->
+        <div id="posts-grid" class="posts-grid">
+          <!-- JavaScript(posts.js)에 의해 동적 렌더링 -->
+        </div>
+
+        <!-- Pagination (동적 렌더링) -->
+        <div id="pagination-container" class="pagination"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 하단 푸터 -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="hero-socials">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">🐙</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">💼</a>
+        <a href="about.html" class="social-link" title="About Me">🙋‍♂️</a>
+      </div>
+      <p class="footer-copyright">
+        &copy; 2026 DEV.LOG. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- 맨 위로 가기 버튼 -->
+  <button id="back-to-top" class="back-to-top" aria-label="맨 위로 이동" title="맨 위로">↑</button>
+
+  <!-- Toast 알림 팝업 -->
+  <div id="toast" class="toast" role="alert"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
