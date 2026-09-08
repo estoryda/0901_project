@@ -1,15 +1,17 @@
 /**
  * Auth Pages Controller (Login & Register)
  * Handles form validation, credential checks, demo logins, and redirection.
+ * Supports both Google Apps Script Spreadsheet API and LocalStorage Fallback.
  */
 
-import { loginUser, registerUser, loginAsDemo, getCurrentUser } from './auth.js';
+import { loginUser, registerUser, loginAsDemo, getCurrentUser, setCurrentUser } from './auth.js';
+import { apiLoginUser, apiRegisterUser, GAS_WEB_APP_URL } from './api-service.js';
 
 export function initLoginPage() {
   const loginForm = document.getElementById('login-form');
   if (!loginForm) return;
 
-  // 이미 로그인되어 있으면 프로필 페이지로 이동 안내
+  // 이미 로그인되어 있으면 안내
   const currentUser = getCurrentUser();
   if (currentUser) {
     const noticeBox = document.getElementById('already-logged-notice');
@@ -23,11 +25,12 @@ export function initLoginPage() {
   }
 
   // 1. 일반 로그인 폼 제출
-  loginForm.addEventListener('submit', (e) => {
+  loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const emailInput = document.getElementById('login-email');
     const passwordInput = document.getElementById('login-password');
     const errorEl = document.getElementById('login-error');
+    const submitBtn = loginForm.querySelector('button[type="submit"]');
 
     if (errorEl) errorEl.textContent = '';
 
@@ -39,7 +42,27 @@ export function initLoginPage() {
       return;
     }
 
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = '로그인 중...';
+
     try {
+      // 1) 구글 스프레드시트 API 연동 시도
+      if (GAS_WEB_APP_URL) {
+        const apiResult = await apiLoginUser(email, password);
+        if (apiResult.success) {
+          setCurrentUser(apiResult.user);
+          showGlobalToast(`🎉 환영합니다, ${apiResult.user.name}님! (시트 연동)`);
+          setTimeout(() => {
+            window.location.href = 'profile.html';
+          }, 800);
+          return;
+        } else {
+          throw new Error(apiResult.message || '로그인에 실패했습니다.');
+        }
+      }
+
+      // 2) 스프레드시트 URL 미설정 시 로컬스토리지 모드
       const user = loginUser(email, password);
       showGlobalToast(`🎉 환영합니다, ${user.name}님!`);
       setTimeout(() => {
@@ -47,6 +70,9 @@ export function initLoginPage() {
       }, 800);
     } catch (err) {
       if (errorEl) errorEl.textContent = `❌ ${err.message}`;
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalBtnText;
     }
   });
 
@@ -128,7 +154,7 @@ export function initRegisterPage() {
     confirmInput.addEventListener('input', checkPasswordMatch);
   }
 
-  registerForm.addEventListener('submit', (e) => {
+  registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('reg-name').value.trim();
     const username = document.getElementById('reg-username').value.trim();
@@ -138,6 +164,7 @@ export function initRegisterPage() {
     const role = document.getElementById('reg-role')?.value || 'Junior Developer';
     const termsAgree = document.getElementById('reg-terms')?.checked;
     const errorEl = document.getElementById('reg-error');
+    const submitBtn = registerForm.querySelector('button[type="submit"]');
 
     if (errorEl) errorEl.textContent = '';
 
@@ -156,7 +183,34 @@ export function initRegisterPage() {
       return;
     }
 
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = '회원가입 처리 중...';
+
     try {
+      // 1) 구글 스프레드시트 API 연동 시도
+      if (GAS_WEB_APP_URL) {
+        const apiResult = await apiRegisterUser({
+          name,
+          username,
+          email,
+          password,
+          role
+        });
+
+        if (apiResult.success) {
+          setCurrentUser(apiResult.user);
+          showGlobalToast(`🎉 환영합니다, ${apiResult.user.name}님! 회원가입 완료 (시트 저장)`);
+          setTimeout(() => {
+            window.location.href = 'profile.html';
+          }, 1000);
+          return;
+        } else {
+          throw new Error(apiResult.message || '회원가입에 실패했습니다.');
+        }
+      }
+
+      // 2) 스프레드시트 URL 미설정 시 로컬스토리지 모드
       const newUser = registerUser({
         name,
         username,
@@ -171,6 +225,9 @@ export function initRegisterPage() {
       }, 1000);
     } catch (err) {
       if (errorEl) errorEl.textContent = `❌ ${err.message}`;
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalBtnText;
     }
   });
 }
