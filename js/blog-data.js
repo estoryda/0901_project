@@ -486,6 +486,68 @@ export function createPost(newPostData) {
   return post;
 }
 
+/**
+ * 게시글 수정 (Update)
+ */
+export function updatePost(postId, updatedData) {
+  const posts = getPosts();
+  const idNum = Number(postId);
+  const index = posts.findIndex(p => p.id === idNum);
+
+  if (index === -1) {
+    throw new Error(`ID가 ${postId}인 게시글을 찾을 수 없습니다.`);
+  }
+
+  const existing = posts[index];
+  const updated = {
+    ...existing,
+    title: updatedData.title !== undefined ? updatedData.title.trim() : existing.title,
+    summary: updatedData.summary !== undefined ? updatedData.summary.trim() : existing.summary,
+    category: updatedData.category || existing.category,
+    tags: updatedData.tags || existing.tags,
+    thumbnail: updatedData.thumbnail || existing.thumbnail,
+    content: updatedData.content !== undefined ? updatedData.content : existing.content,
+    readTime: updatedData.content
+      ? `${Math.max(1, Math.ceil(updatedData.content.length / 500))}분 읽기`
+      : existing.readTime,
+    updatedDate: new Date().toISOString().split('T')[0]
+  };
+
+  posts[index] = updated;
+  savePosts(posts);
+  return updated;
+}
+
+/**
+ * 게시글 삭제 (Delete)
+ */
+export function deletePost(postId) {
+  const posts = getPosts();
+  const idNum = Number(postId);
+  const index = posts.findIndex(p => p.id === idNum);
+
+  if (index === -1) {
+    throw new Error(`ID가 ${postId}인 게시글을 찾을 수 없습니다.`);
+  }
+
+  posts.splice(index, 1);
+  savePosts(posts);
+
+  // 좋아요 목록에서도 해당 post ID 삭제
+  try {
+    const liked = JSON.parse(localStorage.getItem(STORAGE_KEYS.LIKED_POSTS) || '[]');
+    const likedIndex = liked.indexOf(idNum);
+    if (likedIndex > -1) {
+      liked.splice(likedIndex, 1);
+      localStorage.setItem(STORAGE_KEYS.LIKED_POSTS, JSON.stringify(liked));
+    }
+  } catch (e) {
+    console.warn('좋아요 목록 정리 실패:', e);
+  }
+
+  return true;
+}
+
 function savePosts(posts) {
   localStorage.setItem(STORAGE_KEYS.POSTS, JSON.stringify(posts));
 }

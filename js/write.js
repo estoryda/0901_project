@@ -4,7 +4,7 @@
  * draft auto-saving, and integration with blog-data.js.
  */
 
-import { createPost } from './blog-data.js';
+import { createPost, updatePost, getPostById } from './blog-data.js';
 import { getCurrentUser, loginAsDemo } from './auth.js';
 
 const DRAFT_STORAGE_KEY = 'blog_write_draft';
@@ -24,11 +24,36 @@ export function initWritePage() {
   const saveDraftBtn = document.getElementById('btn-save-draft');
   const draftStatusIndicator = document.getElementById('draft-status-indicator');
 
+  // URL 파라미터 확인 (수정 모드: ?edit=ID 또는 ?id=ID)
+  const urlParams = new URLSearchParams(window.location.search);
+  const editPostId = urlParams.get('edit') || urlParams.get('id');
+  let isEditMode = false;
+  let targetPost = null;
+
+  if (editPostId) {
+    targetPost = getPostById(editPostId, false);
+    if (targetPost) {
+      isEditMode = true;
+      setupEditModeUI(targetPost, {
+        titleInput,
+        categorySelect,
+        thumbnailInput,
+        tagsInput,
+        summaryInput,
+        contentInput,
+        submitBtn,
+        draftStatusIndicator
+      });
+    }
+  }
+
   // 1. 로그인 상태 확인 및 비로그인 안내
   checkAuthNotice();
 
-  // 2. 임시저장 데이터 복원
-  loadDraft({ titleInput, categorySelect, thumbnailInput, tagsInput, summaryInput, contentInput });
+  // 2. 임시저장 데이터 복원 (수정 모드가 아닐 때만 복원)
+  if (!isEditMode) {
+    loadDraft({ titleInput, categorySelect, thumbnailInput, tagsInput, summaryInput, contentInput });
+  }
 
   // 3. 이모지 선택 버튼 이벤트
   initEmojiPicker(thumbnailInput);
@@ -128,39 +153,95 @@ export function initWritePage() {
     const parsedHtml = parseMarkdownToHtml(content);
 
     submitBtn.disabled = true;
-    submitBtn.textContent = '발행 중...';
+    submitBtn.textContent = isEditMode ? '수정사항 저장 중...' : '발행 중...';
 
     try {
-      const newPost = createPost({
-        title,
-        summary,
-        category,
-        tags: tags.length > 0 ? tags : [category],
-        thumbnail,
-        content: parsedHtml,
-        author: {
-          name: authorInfo.name,
-          role: authorInfo.role || 'Member',
-          avatar: authorInfo.avatar || 'assets/images/profile.jpg'
-        }
-      });
+      if (isEditMode) {
+        // 수정 (Update)
+        const updatedPost = updatePost(editPostId, {
+          title,
+          summary,
+          category,
+          tags: tags.length > 0 ? tags : [category],
+          thumbnail,
+          content: parsedHtml
+        });
 
-      // 임시저장 내용 삭제
-      localStorage.removeItem(DRAFT_STORAGE_KEY);
+        showGlobalToast('✅ 게시글이 성공적으로 수정되었습니다!');
+        setTimeout(() => {
+          window.location.href = `post-detail.html?id=${updatedPost.id}`;
+        }, 700);
+      } else {
+        // 신규 작성 (Create)
+        const newPost = createPost({
+          title,
+          summary,
+          category,
+          tags: tags.length > 0 ? tags : [category],
+          thumbnail,
+          content: parsedHtml,
+          author: {
+            id: authorInfo.id,
+            name: authorInfo.name,
+            username: authorInfo.username,
+            role: authorInfo.role || 'Member',
+            avatar: authorInfo.avatar || 'assets/images/profile.jpg'
+          }
+        });
 
-      showGlobalToast('🎉 새 아티클이 성공적으로 발행되었습니다!');
+        // 임시저장 내용 삭제
+        localStorage.removeItem(DRAFT_STORAGE_KEY);
 
-      // 작성된 글 상세 페이지로 이동
-      setTimeout(() => {
-        window.location.href = `post-detail.html?id=${newPost.id}`;
-      }, 700);
+        showGlobalToast('🎉 새 아티클이 성공적으로 발행되었습니다!');
+
+        // 작성된 글 상세 페이지로 이동
+        setTimeout(() => {
+          window.location.href = `post-detail.html?id=${newPost.id}`;
+        }, 700);
+      }
     } catch (err) {
-      console.error('글 작성 실패:', err);
-      if (errorMsg) errorMsg.textContent = `❌ 글 작성 실패: ${err.message}`;
+      console.error('글 저장 실패:', err);
+      if (errorMsg) errorMsg.textContent = `❌ 저장 실패: ${err.message}`;
       submitBtn.disabled = false;
-      submitBtn.textContent = '🚀 글 발행하기';
+      submitBtn.textContent = isEditMode ? '💾 수정사항 저장하기' : '🚀 글 발행하기';
     }
   });
+}
+
+/**
+ * 수정 모드 UI 초기화
+ */
+function setupEditModeUI(post, elements) {
+  document.title = `글 수정: ${post.title} | DEV.LOG`;
+
+  const headingEl = document.querySelector('h1');
+  if (headingEl) headingEl.textContent = '아티클 수정하기';
+
+  if (elements.submitBtn) {
+    elements.submitBtn.textContent = '💾 수정사항 저장하기';
+  }
+
+  if (elements.draftStatusIndicator) {
+    elements.draftStatusIndicator.textContent = '✏️ 기존 게시글 수정 모드';
+    elements.draftStatusIndicator.style.color = 'var(--accent-primary)';
+    elements.draftStatusIndicator.style.fontWeight = '600';
+  }
+
+  if (elements.titleInput) elements.titleInput.value = post.title || '';
+  if (elements.categorySelect) elements.categorySelect.value = post.category || 'General';
+  if (elements.thumbnailInput) elements.thumbnailInput.value = post.thumbnail || '⚡';
+  if (elements.tagsInput) elements.tagsInput.value = (post.tags || []).join(', ');
+  if (elements.summaryInput) elements.summaryInput.value = post.summary || '';
+  if (elements.contentInput) elements.contentInput.value = post.content || '';
+
+  // 썸네일 이모지 활성화 표시
+  if (post.thumbnail) {
+    const activeEmojiBtn = document.querySelector(`.emoji-select-btn[data-emoji="${post.thumbnail}"]`);
+    if (activeEmojiBtn) {
+      document.querySelectorAll('.emoji-select-btn').forEach(b => b.classList.remove('active'));
+      activeEmojiBtn.classList.add('active');
+    }
+  }
 }
 
 /**

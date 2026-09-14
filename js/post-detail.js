@@ -3,7 +3,7 @@
  * Handles article view, likes, table of contents (TOC), and comment operations.
  */
 
-import { getPostById, getPosts, toggleLikePost, isPostLiked, addComment, deleteComment } from './blog-data.js';
+import { getPostById, getPosts, toggleLikePost, isPostLiked, addComment, deleteComment, deletePost } from './blog-data.js';
 import { getCurrentUser } from './auth.js';
 
 export function initPostDetailPage() {
@@ -46,9 +46,48 @@ function renderPostDetail(post) {
   const catEl = document.getElementById('post-category');
   if (catEl) catEl.textContent = post.category;
 
+  const catBadge = document.getElementById('post-category-badge');
+  if (catBadge) catBadge.textContent = post.category;
+
   // Title
   const titleEl = document.getElementById('post-title');
   if (titleEl) titleEl.textContent = post.title;
+
+  // Author Actions (Edit / Delete) for Post Author
+  const currentUser = getCurrentUser();
+  const authorActionsBar = document.getElementById('author-actions-bar');
+  if (authorActionsBar) {
+    const isAuthor = currentUser && post.author && (
+      (post.author.id && currentUser.id && post.author.id === currentUser.id) ||
+      (post.author.username && currentUser.username && post.author.username === currentUser.username) ||
+      (post.author.name && post.author.name === currentUser.name)
+    );
+
+    if (isAuthor) {
+      authorActionsBar.style.display = 'inline-flex';
+      const editBtn = document.getElementById('detail-edit-btn');
+      if (editBtn) {
+        editBtn.href = `write.html?edit=${post.id}`;
+      }
+      const deleteBtn = document.getElementById('detail-delete-btn');
+      if (deleteBtn) {
+        deleteBtn.onclick = () => {
+          if (confirm(`정말 "${post.title}" 게시글을 삭제하시겠습니까?\n삭제된 게시글은 복구할 수 없습니다.`)) {
+            try {
+              deletePost(post.id);
+              alert('게시글이 성공적으로 삭제되었습니다.');
+              window.location.href = 'posts.html';
+            } catch (err) {
+              console.error(err);
+              alert('게시글 삭제 중 오류가 발생했습니다.');
+            }
+          }
+        };
+      }
+    } else {
+      authorActionsBar.style.display = 'none';
+    }
+  }
 
   // Meta info
   const dateEl = document.getElementById('post-date');

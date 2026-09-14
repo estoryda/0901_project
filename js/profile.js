@@ -4,7 +4,7 @@
  */
 
 import { getCurrentUser, updateUserProfile, logoutUser, loginAsDemo, initNavAuth } from './auth.js';
-import { getPosts, getPostById } from './blog-data.js';
+import { getPosts, getPostById, deletePost } from './blog-data.js';
 
 export function initProfilePage() {
   const profileContainer = document.getElementById('profile-container');
@@ -77,7 +77,13 @@ function renderProfileInfo(user) {
 
   // 통계 계산
   const allPosts = getPosts();
-  const myPosts = allPosts.filter(p => p.author && p.author.name === user.name);
+  const myPosts = allPosts.filter(p => 
+    p.author && (
+      (p.author.id && user.id && p.author.id === user.id) ||
+      (p.author.username && user.username && p.author.username === user.username) ||
+      (p.author.name && p.author.name === user.name)
+    )
+  );
   const totalLikesReceived = myPosts.reduce((acc, p) => acc + (p.likes || 0), 0);
 
   // 좋아요한 게시글 ID 목록
@@ -150,7 +156,7 @@ function renderMyPostsList(myPosts) {
   }
 
   container.innerHTML = `
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
       <span style="font-size: 0.95rem; color: var(--text-muted);">총 <strong>${myPosts.length}</strong>개의 글</span>
       <a href="write.html" class="btn btn-primary" style="padding: 0.45rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.35rem;">
         <span>✏️</span> 새 글 작성
@@ -176,16 +182,56 @@ function renderMyPostsList(myPosts) {
               </a>
             </h4>
             <p class="post-card-summary" style="-webkit-line-clamp: 2;">${escapeHtml(post.summary)}</p>
-            <div style="margin-top: 1rem; display: flex; justify-content: flex-end;">
-              <a href="post-detail.html?id=${post.id}" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">
+            <div style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+              <a href="post-detail.html?id=${post.id}" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.825rem;">
                 글 보기 ➔
               </a>
+              <div style="display: flex; gap: 0.4rem;">
+                <a href="write.html?edit=${post.id}" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.825rem; display: inline-flex; align-items: center; gap: 0.25rem;" title="게시글 수정">
+                  <span>✏️</span> 수정
+                </a>
+                <button type="button" class="btn btn-secondary btn-delete-post" data-post-id="${post.id}" data-post-title="${escapeHtml(post.title)}" style="padding: 0.35rem 0.75rem; font-size: 0.825rem; color: #ef4444; display: inline-flex; align-items: center; gap: 0.25rem;" title="게시글 삭제">
+                  <span>🗑️</span> 삭제
+                </button>
+              </div>
             </div>
           </div>
         </div>
       `).join('')}
     </div>
   `;
+
+  // 삭제 버튼 이벤트 바인딩
+  container.querySelectorAll('.btn-delete-post').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const postId = btn.getAttribute('data-post-id');
+      const postTitle = btn.getAttribute('data-post-title') || '해당';
+      if (confirm(`정말 "${postTitle}" 게시글을 삭제하시겠습니까?\n삭제된 게시글은 복구할 수 없습니다.`)) {
+        try {
+          deletePost(postId);
+          showGlobalToast('🗑️ 게시글이 성공적으로 삭제되었습니다.');
+
+          // 통계 및 목록 갱신
+          const updatedUser = getCurrentUser();
+          const allPosts = getPosts();
+          const updatedMyPosts = allPosts.filter(p => 
+            p.author && (
+              (p.author.id && updatedUser.id && p.author.id === updatedUser.id) ||
+              (p.author.username && updatedUser.username && p.author.username === updatedUser.username) ||
+              (p.author.name && p.author.name === updatedUser.name)
+            )
+          );
+
+          renderMyPostsList(updatedMyPosts);
+
+          const statPosts = document.getElementById('stat-my-posts');
+          if (statPosts) statPosts.textContent = updatedMyPosts.length;
+        } catch (err) {
+          alert('삭제 실패: ' + err.message);
+        }
+      }
+    });
+  });
 }
 
 function renderLikedPostsList(likedIds) {

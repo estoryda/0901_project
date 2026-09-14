@@ -78,8 +78,16 @@
                 </div>
               </div>
 
-              <!-- Top Share / Bookmark Quick Actions -->
-              <div style="display: flex; gap: 0.5rem;">
+              <!-- Top Share / Bookmark & Author Actions -->
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <div id="author-actions-bar" style="display: none; gap: 0.4rem;">
+                  <a href="#" id="detail-edit-btn" class="btn btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                    <span>✏️</span> 수정
+                  </a>
+                  <button type="button" id="detail-delete-btn" class="btn btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.85rem; color: #ef4444; display: inline-flex; align-items: center; gap: 0.25rem;">
+                    <span>🗑️</span> 삭제
+                  </button>
+                </div>
                 <button id="share-btn" class="btn btn-secondary" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;" title="링크 복사">
                   🔗 공유하기
                 </button>
