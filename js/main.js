@@ -12,6 +12,7 @@ import { initPostsPage } from './posts.js';
 import { initPostDetailPage } from './post-detail.js';
 import { initProfilePage } from './profile.js';
 import { initLoginPage, initRegisterPage } from './auth-pages.js';
+import { initWritePage } from './write.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. 공통 모듈 초기화
@@ -52,6 +53,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // 8. 회원가입 페이지 (register.html)
   if (document.getElementById('register-form')) {
     initRegisterPage();
+  }
+
+  // 9. 글쓰기 페이지 (write.html)
+  if (document.getElementById('write-container')) {
+    initWritePage();
   }
 
   // 9. 이메일 클립보드 복사 & Toast 알림

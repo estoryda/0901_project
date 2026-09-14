@@ -187,7 +187,17 @@ export function initNavAuth() {
     existingAuthItems.forEach(item => item.remove());
 
     if (currentUser) {
-      // 1. 로그아웃 버튼 (로그인 버튼 위치에 대응)
+      // 1. 글쓰기 버튼
+      const writeLi = document.createElement('li');
+      writeLi.className = 'nav-auth-item';
+      const isWriteActive = currentPath === 'write.html' ? 'active' : '';
+      writeLi.innerHTML = `
+        <a href="write.html" class="nav-link ${isWriteActive} nav-btn-write" id="nav-write-btn" style="display: inline-flex; align-items: center; gap: 0.35rem;" title="새 아티클 작성">
+          <span>✏️</span> 글쓰기
+        </a>
+      `;
+
+      // 2. 로그아웃 버튼 (로그인 버튼 위치에 대응)
       const logoutLi = document.createElement('li');
       logoutLi.className = 'nav-auth-item';
       logoutLi.innerHTML = `
@@ -196,7 +206,7 @@ export function initNavAuth() {
         </button>
       `;
 
-      // 2. 프로필 버튼 (회원가입 버튼 위치에 대응, 강조 스타일)
+      // 3. 프로필 버튼 (회원가입 버튼 위치에 대응, 강조 스타일)
       const profileLi = document.createElement('li');
       profileLi.className = 'nav-auth-item';
       const isProfileActive = currentPath === 'profile.html' ? 'active' : '';
@@ -206,6 +216,7 @@ export function initNavAuth() {
         </a>
       `;
 
+      navContainer.appendChild(writeLi);
       navContainer.appendChild(logoutLi);
       navContainer.appendChild(profileLi);
 
@@ -221,6 +232,10 @@ export function initNavAuth() {
 
       // 모바일 드로어 클릭 시 닫기
       if (menuToggleBtn) {
+        writeLi.querySelector('a')?.addEventListener('click', () => {
+          navContainer.classList.remove('open');
+          menuToggleBtn.innerHTML = '☰';
+        });
         profileLi.querySelector('a')?.addEventListener('click', () => {
           navContainer.classList.remove('open');
           menuToggleBtn.innerHTML = '☰';

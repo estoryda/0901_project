@@ -140,13 +140,22 @@ function renderMyPostsList(myPosts) {
         <div class="empty-state-icon">📝</div>
         <h3 class="empty-state-title">작성한 게시글이 없습니다.</h3>
         <p class="empty-state-desc">새로운 지식과 경험을 블로그에 공유해 보세요!</p>
-        <a href="posts.html" class="btn btn-primary">게시글 둘러보기</a>
+        <div style="display: flex; gap: 0.75rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap;">
+          <a href="write.html" class="btn btn-primary">✏️ 새 글 작성하기</a>
+          <a href="posts.html" class="btn btn-secondary">게시글 둘러보기</a>
+        </div>
       </div>
     `;
     return;
   }
 
   container.innerHTML = `
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+      <span style="font-size: 0.95rem; color: var(--text-muted);">총 <strong>${myPosts.length}</strong>개의 글</span>
+      <a href="write.html" class="btn btn-primary" style="padding: 0.45rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.35rem;">
+        <span>✏️</span> 새 글 작성
+      </a>
+    </div>
     <div class="posts-grid">
       ${myPosts.map(post => `
         <div class="post-card">

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>새 글 작성 | DEV.LOG</title>
+  <meta name="description" content="배움과 기술 지식을 기록하는 DEV.LOG 글쓰기 에디터입니다.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- Fonts -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/blog.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- 스크롤 진행 바 -->
+  <div id="scroll-progress" class="scroll-progress"></div>
+
+  <!-- 상단 헤더 & 네비게이션 -->
+  <header id="header" class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        <span>DEV.LOG</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">홈</a></li>
+        <li><a href="posts.html" class="nav-link">게시글 목록</a></li>
+        <li><a href="about.html" class="nav-link">소개</a></li>
+        <!-- auth 아이템 동적 렌더링 -->
+      </ul>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" aria-label="테마 전환" title="테마 전환">🌙</button>
+        <button id="menu-toggle" class="icon-btn menu-toggle" aria-label="메뉴 열기">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding-top: calc(var(--header-height) + 2rem);" id="write-container">
+    <div class="container" style="max-width: 920px;">
+      
+      <!-- Top Title & Navigation Back -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <a href="posts.html" class="post-back-link" style="margin-bottom: 0.5rem; display: inline-flex;">← 게시글 목록으로</a>
+          <h1 style="font-size: 2rem; font-weight: 800; letter-spacing: -0.02em;">새 아티클 작성</h1>
+        </div>
+        <div id="draft-status-box" style="font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">
+          <span id="draft-status-indicator">⏱️ 자동 저장 대기</span>
+        </div>
+      </div>
+
+      <!-- Non-logged in notice box (dynamically shown or hidden) -->
+      <div id="write-auth-notice" class="demo-account-box" style="display: none; margin-bottom: 1.5rem;">
+        <div>
+          <div style="font-weight: 700; color: var(--accent-primary); margin-bottom: 0.2rem;">💡 로그인 상태 안내</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);" id="write-auth-desc">
+            현재 비로그인 상태입니다. 로그인 후 작성하시거나 데모 계정으로 글을 게시할 수 있습니다.
+          </div>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <a href="login.html" class="btn btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">로그인하기</a>
+          <button type="button" id="write-demo-login-btn" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">데모 계정 연결</button>
+        </div>
+      </div>
+
+      <!-- Write Form -->
+      <form id="write-form" class="sidebar-widget" style="padding: 2.25rem; border-radius: var(--radius-lg); background: var(--bg-surface); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); margin-bottom: 3rem;">
+        
+        <!-- 1. Post Title -->
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label for="write-title" class="form-label" style="font-weight: 700; font-size: 1.05rem;">
+            글 제목 <span style="color: var(--accent-primary);">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="write-title" 
+            class="form-input" 
+            placeholder="기술 지식이나 경험을 잘 나타내는 제목을 입력하세요" 
+            style="font-size: 1.2rem; font-weight: 600; padding: 0.85rem 1.1rem;"
+            required 
+          />
+        </div>
+
+        <!-- 2. Meta Grid (Category & Thumbnail Emoji) -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.5rem;" class="write-meta-grid">
+          <!-- Category -->
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="write-category" class="form-label" style="font-weight: 700;">
+              카테고리 <span style="color: var(--accent-primary);">*</span>
+            </label>
+            <select id="write-category" class="form-select" style="width: 100%; padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-primary); font-family: inherit; font-size: 0.95rem;">
+              <option value="Frontend">Frontend (프론트엔드)</option>
+              <option value="Backend">Backend (백엔드)</option>
+              <option value="Architecture">Architecture (아키텍처)</option>
+              <option value="DevOps">DevOps & Infra</option>
+              <option value="JavaScript">JavaScript & TypeScript</option>
+              <option value="Career">Career & Life (커리어)</option>
+              <option value="General">General (일반 기술)</option>
+            </select>
+          </div>
+
+          <!-- Thumbnail Emoji Selector -->
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" style="font-weight: 700;">대표 아이콘 (썸네일)</label>
+            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+              <input 
+                type="text" 
+                id="write-thumbnail" 
+                class="form-input" 
+                value="⚡" 
+                style="width: 55px; text-align: center; font-size: 1.4rem; padding: 0.4rem 0;" 
+                maxlength="2"
+                title="직접 이모지를 입력할 수도 있습니다"
+              />
+              <div id="quick-emoji-list" style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+                <button type="button" class="emoji-select-btn active" data-emoji="⚡">⚡</button>
+                <button type="button" class="emoji-select-btn" data-emoji="💻">💻</button>
+                <button type="button" class="emoji-select-btn" data-emoji="🚀">🚀</button>
+                <button type="button" class="emoji-select-btn" data-emoji="📝">📝</button>
+                <button type="button" class="emoji-select-btn" data-emoji="🎨">🎨</button>
+                <button type="button" class="emoji-select-btn" data-emoji="💡">💡</button>
+                <button type="button" class="emoji-select-btn" data-emoji="🛠️">🛠️</button>
+                <button type="button" class="emoji-select-btn" data-emoji="🔥">🔥</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Tags Input -->
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label for="write-tags" class="form-label" style="font-weight: 700;">
+            태그 (쉼표로 구분)
+          </label>
+          <input 
+            type="text" 
+            id="write-tags" 
+            class="form-input" 
+            placeholder="예: React, TypeScript, CleanCode, Architecture"
+          />
+          <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem;">
+            쉼표(,)로 구분하여 입력하시면 자동으로 태그 배지(#태그명)로 표시됩니다.
+          </div>
+        </div>
+
+        <!-- 4. Summary / Abstract -->
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label for="write-summary" class="form-label" style="font-weight: 700;">
+            글 요약 (Summary)
+          </label>
+          <textarea 
+            id="write-summary" 
+            class="form-textarea" 
+            rows="2" 
+            placeholder="게시글 목록 카드에 표시될 1~2줄 요약을 적어주세요. (비워두면 본문 시작 부분에서 자동 추출됩니다)"
+          ></textarea>
+        </div>
+
+        <!-- 5. Content Editor (Toolbar + Tabs + Textarea + Preview) -->
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; flex-wrap: wrap; gap: 0.5rem;">
+            <label for="write-content" class="form-label" style="font-weight: 700; margin-bottom: 0; font-size: 1.05rem;">
+              본문 내용 <span style="color: var(--accent-primary);">*</span>
+            </label>
+
+            <!-- Mode Tabs (Write vs Live Preview) -->
+            <div class="editor-tabs">
+              <button type="button" id="tab-write-btn" class="editor-tab-btn active">✏️ 작성 모드</button>
+              <button type="button" id="tab-preview-btn" class="editor-tab-btn">👁️ 실시간 미리보기</button>
+            </div>
+          </div>
+
+          <!-- Formatting Toolbar -->
+          <div id="editor-toolbar" class="editor-toolbar">
+            <button type="button" class="toolbar-btn" data-action="h2" title="큰 제목 (H2)">H2</button>
+            <button type="button" class="toolbar-btn" data-action="h3" title="중간 제목 (H3)">H3</button>
+            <span class="toolbar-divider"></span>
+            <button type="button" class="toolbar-btn" data-action="bold" title="굵게 (Bold)"><strong>B</strong></button>
+            <button type="button" class="toolbar-btn" data-action="italic" title="기울임 (Italic)"><em>I</em></button>
+            <span class="toolbar-divider"></span>
+            <button type="button" class="toolbar-btn" data-action="quote" title="인용구 (Quote)">❞ 인용</button>
+            <button type="button" class="toolbar-btn" data-action="code" title="코드 블록 (Code)">&lt;/&gt; 코드</button>
+            <button type="button" class="toolbar-btn" data-action="list" title="글머리 목록">• 목록</button>
+            <button type="button" class="toolbar-btn" data-action="link" title="하이퍼링크">🔗 링크</button>
+            <button type="button" class="toolbar-btn" data-action="hr" title="구분선">― 구분선</button>
+          </div>
+
+          <!-- Write Tab Body -->
+          <div id="write-input-pane">
+            <textarea 
+              id="write-content" 
+              class="form-textarea" 
+              rows="16" 
+              placeholder="마크다운(Markdown) 문법 또는 HTML 형식으로 자유롭게 글을 작성하세요.
+
+## 1. 시작하며
+배운 점이나 고민했던 기술 주제를 작성해 보세요.
+
+```javascript
+console.log('Hello DEV.LOG!');
+```
+
+> 기술적인 배움을 기록하고 지식을 나눕니다.
+" 
+              style="font-family: Consolas, 'Fira Code', monospace, var(--font-sans); line-height: 1.65; font-size: 0.95rem; resize: vertical; border-radius: 0 0 var(--radius-md) var(--radius-md);"
+              required
+            ></textarea>
+          </div>
+
+          <!-- Preview Tab Body -->
+          <div id="write-preview-pane" class="post-body" style="display: none; min-height: 380px; padding: 2rem; border: 1px solid var(--border-color); border-radius: 0 0 var(--radius-md) var(--radius-md); background: var(--bg-surface); overflow-y: auto;">
+            <!-- Live Preview content rendered dynamically here -->
+          </div>
+        </div>
+
+        <div id="write-error-msg" class="form-error-msg" style="margin-bottom: 1.25rem;"></div>
+
+        <!-- Form Action Buttons -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+          <div style="display: flex; gap: 0.5rem;">
+            <a href="posts.html" class="btn btn-secondary">취소 / 목록으로</a>
+            <button type="button" id="btn-save-draft" class="btn btn-secondary" style="font-size: 0.875rem;">
+              💾 임시저장
+            </button>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem;">
+            <button type="submit" id="btn-publish-post" class="btn btn-primary" style="padding: 0.75rem 1.85rem; font-size: 1rem; font-weight: 700;">
+              🚀 글 발행하기
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- 하단 푸터 -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="hero-socials">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">🐙</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">💼</a>
+        <a href="posts.html" class="social-link" title="게시글 목록">📚</a>
+      </div>
+      <p class="footer-copyright">
+        &copy; 2026 DEV.LOG. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- 맨 위로 가기 버튼 -->
+  <button id="back-to-top" class="back-to-top" aria-label="맨 위로 이동" title="맨 위로">↑</button>
+
+  <!-- Toast 알림 팝업 -->
+  <div id="toast" class="toast" role="alert"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
