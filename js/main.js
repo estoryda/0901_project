@@ -16,8 +16,8 @@ import { initLoginPage, initRegisterPage } from './auth-pages.js';
 document.addEventListener('DOMContentLoaded', () => {
   // 1. 공통 모듈 초기화
   initTheme();
-  initScroll();
   initNavAuth();
+  initScroll();
 
   // 2. 홈 화면(index.html) 전용 초기화
   if (document.getElementById('home-featured-posts')) {

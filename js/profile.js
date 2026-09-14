@@ -3,7 +3,7 @@
  * Handles user profile info, statistics, tab switching, and profile settings.
  */
 
-import { getCurrentUser, updateUserProfile, logoutUser, loginAsDemo } from './auth.js';
+import { getCurrentUser, updateUserProfile, logoutUser, loginAsDemo, initNavAuth } from './auth.js';
 import { getPosts, getPostById } from './blog-data.js';
 
 export function initProfilePage() {
@@ -50,7 +50,7 @@ export function initProfilePage() {
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
       if (confirm('정말 로그아웃 하시겠습니까?')) {
-        logoutUser();
+        logoutUser(true);
       }
     });
   }
@@ -300,6 +300,7 @@ function initProfileEditForm(user) {
     });
 
     renderProfileInfo(updated);
+    initNavAuth();
     showGlobalToast('✅ 프로필 정보가 성공적으로 변경되었습니다!');
   });
 }

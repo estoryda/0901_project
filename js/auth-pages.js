@@ -47,23 +47,32 @@ export function initLoginPage() {
     submitBtn.textContent = '로그인 중...';
 
     try {
-      // 1) 구글 스프레드시트 API 연동 시도
-      if (GAS_WEB_APP_URL) {
-        const apiResult = await apiLoginUser(email, password);
-        if (apiResult.success) {
-          setCurrentUser(apiResult.user);
-          showGlobalToast(`🎉 환영합니다, ${apiResult.user.name}님! (시트 연동)`);
-          setTimeout(() => {
-            window.location.href = 'profile.html';
-          }, 800);
-          return;
-        } else {
-          throw new Error(apiResult.message || '로그인에 실패했습니다.');
+      let user = null;
+
+      // 1) 로컬 저장소 우선 확인 (기본 데모 계정 및 로컬 등록 계정 즉시 지원)
+      try {
+        user = loginUser(email, password);
+      } catch (localErr) {
+        // 로컬에 없으면 스프레드시트 API 시도
+      }
+
+      // 2) 로컬에 없을 때 구글 스프레드시트 API 연동 시도
+      if (!user && GAS_WEB_APP_URL) {
+        try {
+          const apiResult = await apiLoginUser(email, password);
+          if (apiResult.success && apiResult.user) {
+            user = apiResult.user;
+            setCurrentUser(user);
+          }
+        } catch (apiErr) {
+          console.warn('스프레드시트 로그인 API 에러:', apiErr);
         }
       }
 
-      // 2) 스프레드시트 URL 미설정 시 로컬스토리지 모드
-      const user = loginUser(email, password);
+      if (!user) {
+        throw new Error('이메일(아이디) 또는 비밀번호가 일치하지 않습니다.');
+      }
+
       showGlobalToast(`🎉 환영합니다, ${user.name}님!`);
       setTimeout(() => {
         window.location.href = 'profile.html';
@@ -188,29 +197,7 @@ export function initRegisterPage() {
     submitBtn.textContent = '회원가입 처리 중...';
 
     try {
-      // 1) 구글 스프레드시트 API 연동 시도
-      if (GAS_WEB_APP_URL) {
-        const apiResult = await apiRegisterUser({
-          name,
-          username,
-          email,
-          password,
-          role
-        });
-
-        if (apiResult.success) {
-          setCurrentUser(apiResult.user);
-          showGlobalToast(`🎉 환영합니다, ${apiResult.user.name}님! 회원가입 완료 (시트 저장)`);
-          setTimeout(() => {
-            window.location.href = 'profile.html';
-          }, 1000);
-          return;
-        } else {
-          throw new Error(apiResult.message || '회원가입에 실패했습니다.');
-        }
-      }
-
-      // 2) 스프레드시트 URL 미설정 시 로컬스토리지 모드
+      // 1) 로컬 저장소에 사용자 등록
       const newUser = registerUser({
         name,
         username,
@@ -218,6 +205,17 @@ export function initRegisterPage() {
         password,
         role
       });
+
+      // 2) 스프레드시트 API 연동이 설정된 경우 비동기 동기화 시도
+      if (GAS_WEB_APP_URL) {
+        apiRegisterUser({
+          name,
+          username,
+          email,
+          password,
+          role
+        }).catch(err => console.warn('스프레드시트 등록 동기화 실패(로컬 계정은 정상 등록됨):', err));
+      }
 
       showGlobalToast(`🎉 환영합니다, ${newUser.name}님! 회원가입이 완료되었습니다.`);
       setTimeout(() => {

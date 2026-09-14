@@ -184,6 +184,59 @@ body {
   border-radius: var(--radius-full);
 }
 
+.nav-logout-btn {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.nav-logout-btn:hover {
+  color: #ef4444;
+}
+
+.nav-btn-highlight {
+  background: var(--accent-gradient);
+  color: #ffffff !important;
+  padding: 0.4rem 0.95rem !important;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: none;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.nav-btn-highlight:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.nav-btn-highlight::after {
+  display: none !important;
+}
+
+.nav-btn-highlight.active {
+  box-shadow: 0 0 0 2px var(--bg-surface), 0 0 0 4px var(--accent-primary);
+}
+
+.nav-profile-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
 .nav-actions {
   display: flex;
   align-items: center;

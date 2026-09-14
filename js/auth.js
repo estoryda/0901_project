@@ -132,10 +132,16 @@ export function setCurrentUser(user) {
 
 /**
  * 로그아웃
+ * @param {boolean} [redirectToHome=false] 홈으로 리다이렉트 여부
  */
-export function logoutUser() {
+export function logoutUser(redirectToHome = false) {
   localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
-  window.location.reload();
+  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+  if (currentPath === 'profile.html' || redirectToHome) {
+    window.location.href = 'index.html';
+  } else {
+    window.location.reload();
+  }
 }
 
 /**
@@ -164,62 +170,90 @@ export function updateUserProfile(updatedFields) {
 
 /**
  * 헤더 네비게이션 바의 로그인 상태 UI 렌더링
+ * - 비로그인 시: 로그인 버튼 / 회원가입 버튼
+ * - 로그인 시: 로그아웃 버튼 / 프로필 버튼으로 변경 처리
  */
 export function initNavAuth() {
-  const navContainer = document.querySelector('.nav-links');
-  if (!navContainer) return;
+  const navContainers = document.querySelectorAll('.nav-links');
+  if (!navContainers || navContainers.length === 0) return;
 
   const currentUser = getCurrentUser();
   const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+  const menuToggleBtn = document.getElementById('menu-toggle');
 
-  // 기존 동적 auth 링크 요소 제거
-  const existingAuthItems = navContainer.querySelectorAll('.nav-auth-item');
-  existingAuthItems.forEach(item => item.remove());
+  navContainers.forEach(navContainer => {
+    // 기존 동적 auth 링크 요소 제거
+    const existingAuthItems = navContainer.querySelectorAll('.nav-auth-item');
+    existingAuthItems.forEach(item => item.remove());
 
-  if (currentUser) {
-    // 로그인 상태: 프로필 링크 & 로그아웃 버튼
-    const profileLi = document.createElement('li');
-    profileLi.className = 'nav-auth-item';
-    const isProfileActive = currentPath === 'profile.html' ? 'active' : '';
-    profileLi.innerHTML = `
-      <a href="profile.html" class="nav-link ${isProfileActive}" style="display: inline-flex; align-items: center; gap: 0.4rem;">
-        <span class="nav-user-badge">👤 ${currentUser.name}</span>
-      </a>
-    `;
+    if (currentUser) {
+      // 1. 로그아웃 버튼 (로그인 버튼 위치에 대응)
+      const logoutLi = document.createElement('li');
+      logoutLi.className = 'nav-auth-item';
+      logoutLi.innerHTML = `
+        <button type="button" id="nav-logout-btn" class="nav-link nav-logout-btn" title="로그아웃">
+          로그아웃
+        </button>
+      `;
 
-    const logoutLi = document.createElement('li');
-    logoutLi.className = 'nav-auth-item';
-    logoutLi.innerHTML = `
-      <button id="nav-logout-btn" class="nav-link btn-link" style="background:none; border:none; cursor:pointer; color:inherit; font:inherit; padding:0;">
-        로그아웃
-      </button>
-    `;
+      // 2. 프로필 버튼 (회원가입 버튼 위치에 대응, 강조 스타일)
+      const profileLi = document.createElement('li');
+      profileLi.className = 'nav-auth-item';
+      const isProfileActive = currentPath === 'profile.html' ? 'active' : '';
+      profileLi.innerHTML = `
+        <a href="profile.html" class="nav-link ${isProfileActive} nav-btn-highlight nav-profile-btn" id="nav-profile-btn" title="${currentUser.name}님의 프로필">
+          <span>👤</span> 프로필
+        </a>
+      `;
 
-    navContainer.appendChild(profileLi);
-    navContainer.appendChild(logoutLi);
+      navContainer.appendChild(logoutLi);
+      navContainer.appendChild(profileLi);
 
-    const logoutBtn = document.getElementById('nav-logout-btn');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (confirm('로그아웃 하시겠습니까?')) {
-          logoutUser();
-        }
-      });
+      const logoutBtn = logoutLi.querySelector('#nav-logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (confirm('로그아웃 하시겠습니까?')) {
+            logoutUser();
+          }
+        });
+      }
+
+      // 모바일 드로어 클릭 시 닫기
+      if (menuToggleBtn) {
+        profileLi.querySelector('a')?.addEventListener('click', () => {
+          navContainer.classList.remove('open');
+          menuToggleBtn.innerHTML = '☰';
+        });
+      }
+    } else {
+      // 비로그인 상태: 로그인 버튼 / 회원가입 버튼
+      // 1. 로그인 버튼
+      const loginLi = document.createElement('li');
+      loginLi.className = 'nav-auth-item';
+      const isLoginActive = currentPath === 'login.html' ? 'active' : '';
+      loginLi.innerHTML = `<a href="login.html" class="nav-link ${isLoginActive}" id="nav-login-btn">로그인</a>`;
+
+      // 2. 회원가입 버튼 (강조 스타일)
+      const registerLi = document.createElement('li');
+      registerLi.className = 'nav-auth-item';
+      const isRegActive = currentPath === 'register.html' ? 'active' : '';
+      registerLi.innerHTML = `<a href="register.html" class="nav-link ${isRegActive} nav-btn-highlight" id="nav-register-btn">회원가입</a>`;
+
+      navContainer.appendChild(loginLi);
+      navContainer.appendChild(registerLi);
+
+      // 모바일 드로어 클릭 시 닫기
+      if (menuToggleBtn) {
+        loginLi.querySelector('a')?.addEventListener('click', () => {
+          navContainer.classList.remove('open');
+          menuToggleBtn.innerHTML = '☰';
+        });
+        registerLi.querySelector('a')?.addEventListener('click', () => {
+          navContainer.classList.remove('open');
+          menuToggleBtn.innerHTML = '☰';
+        });
+      }
     }
-  } else {
-    // 비로그인 상태: 로그인 & 회원가입 링크
-    const loginLi = document.createElement('li');
-    loginLi.className = 'nav-auth-item';
-    const isLoginActive = currentPath === 'login.html' ? 'active' : '';
-    loginLi.innerHTML = `<a href="login.html" class="nav-link ${isLoginActive}">로그인</a>`;
-
-    const registerLi = document.createElement('li');
-    registerLi.className = 'nav-auth-item';
-    const isRegActive = currentPath === 'register.html' ? 'active' : '';
-    registerLi.innerHTML = `<a href="register.html" class="nav-link ${isRegActive} nav-btn-highlight">회원가입</a>`;
-
-    navContainer.appendChild(loginLi);
-    navContainer.appendChild(registerLi);
-  }
+  });
 }
