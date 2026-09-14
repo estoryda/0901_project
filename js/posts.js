@@ -144,10 +144,10 @@ function renderPosts() {
 
   // 5. 카드 렌더링
   postsGrid.innerHTML = currentItems.map(post => `
-    <article class="post-card fade-in-section is-visible">
+    <article class="post-card fade-in-section is-visible" data-href="post-detail.html?id=${post.id}" style="cursor: pointer;">
       <a href="post-detail.html?id=${post.id}" class="post-card-thumb" style="text-decoration: none;">
         <span>${post.thumbnail || '📄'}</span>
-        <span class="post-card-category-badge">${post.category}</span>
+        <span class="post-card-category-badge">${escapeHtml(post.category)}</span>
       </a>
       <div class="post-card-body">
         <div class="post-card-meta">
@@ -163,13 +163,13 @@ function renderPosts() {
         <p class="post-card-summary">${escapeHtml(post.summary)}</p>
         
         <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem;">
-          ${(post.tags || []).map(tag => `<span class="tag-chip" style="font-size: 0.75rem; padding: 0.2rem 0.5rem;">#${tag}</span>`).join('')}
+          ${(post.tags || []).map(tag => `<a href="posts.html?q=${encodeURIComponent(tag)}" class="tag-chip" style="font-size: 0.75rem; padding: 0.2rem 0.5rem;">#${escapeHtml(tag)}</a>`).join('')}
         </div>
 
         <div class="post-card-footer">
           <div style="display: flex; align-items: center; gap: 0.4rem;">
-            <img src="${post.author.avatar}" alt="${post.author.name}" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;">
-            <span>${post.author.name}</span>
+            <img src="${(post.author && post.author.avatar) || 'assets/images/profile.jpg'}" alt="${(post.author && post.author.name) || '작성자'}" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;">
+            <span>${escapeHtml((post.author && post.author.name) || '홍길동')}</span>
           </div>
           <div class="post-card-metrics">
             <span title="조회수">👁️ ${post.views || 0}</span>
@@ -180,6 +180,17 @@ function renderPosts() {
       </div>
     </article>
   `).join('');
+
+  // 목록 카드를 누르면 상세페이지로 이동하도록 이벤트 바인딩
+  postsGrid.querySelectorAll('.post-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a') || e.target.closest('button')) return;
+      const href = card.getAttribute('data-href');
+      if (href) {
+        window.location.href = href;
+      }
+    });
+  });
 
   // 6. 페이지네이션 버튼 렌더링
   renderPagination(totalPages);

@@ -164,7 +164,7 @@ function renderMyPostsList(myPosts) {
     </div>
     <div class="posts-grid">
       ${myPosts.map(post => `
-        <div class="post-card">
+        <div class="post-card" data-href="post-detail.html?id=${post.id}" style="cursor: pointer;">
           <div class="post-card-thumb" style="height: 120px;">
             <span>${post.thumbnail || '📄'}</span>
           </div>
@@ -200,6 +200,15 @@ function renderMyPostsList(myPosts) {
       `).join('')}
     </div>
   `;
+
+  // 카드 클릭 시 상세 페이지 이동 이벤트 바인딩
+  container.querySelectorAll('.post-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a') || e.target.closest('button')) return;
+      const href = card.getAttribute('data-href');
+      if (href) window.location.href = href;
+    });
+  });
 
   // 삭제 버튼 이벤트 바인딩
   container.querySelectorAll('.btn-delete-post').forEach(btn => {

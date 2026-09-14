@@ -192,11 +192,11 @@ export function initWritePage() {
         // 임시저장 내용 삭제
         localStorage.removeItem(DRAFT_STORAGE_KEY);
 
-        showGlobalToast('🎉 새 아티클이 성공적으로 발행되었습니다!');
+        showGlobalToast('🎉 새 아티클이 성공적으로 발행되었습니다! 메인 페이지로 이동합니다.');
 
-        // 작성된 글 상세 페이지로 이동
+        // 메인 페이지로 이동하여 목록 카드 반영 확인
         setTimeout(() => {
-          window.location.href = `post-detail.html?id=${newPost.id}`;
+          window.location.href = `index.html?new_post=success`;
         }, 700);
       }
     } catch (err) {

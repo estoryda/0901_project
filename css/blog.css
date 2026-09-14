@@ -306,6 +306,7 @@
   position: relative;
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 }
 
 .post-card:hover {
@@ -407,6 +408,7 @@
   text-decoration: none;
   color: inherit;
   transition: all var(--transition-fast);
+  cursor: pointer;
 }
 
 .featured-card:hover {
